@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DQQ专属 · 二胡考级练习 · 央音1-9级</title>
+<style>
+:root{--bg:#0a0a12;--card-bg:#12121f;--card-hover:#1a1a2e;--accent:#e8a030;--accent2:#c07020;--accent-dim:rgba(232,160,48,0.15);--text:#e8e0d5;--text-muted:#7a7060;--border:#2a2a3e;--red-string:#e05050;--gold-string:#e8c040;--green:#40c080;--blue:#4090e0;--radius:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+header{background:linear-gradient(135deg,#1a1030 0%,#0d0d1a 60%,#1a0808 100%);border-bottom:1px solid var(--border);padding:20px 24px 16px;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.logo{width:48px;height:48px;flex-shrink:0}
+.header-text h1{font-size:20px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.header-text .tag{display:inline-block;background:var(--accent);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-right:6px;vertical-align:middle;letter-spacing:.05em}
+.header-text p{font-size:12px;color:var(--text-muted);margin-top:2px}
+.section-wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.section-title{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.tuning-ref-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tune-ref-btn{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-size:14px;font-family:inherit;transition:all .2s;user-select:none}
+.tune-ref-btn:hover{background:var(--card-hover);border-color:var(--accent)}
+.tune-ref-btn.playing{background:var(--accent);border-color:var(--accent);color:#000;box-shadow:0 0 14px rgba(232,160,48,.4)}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dot-red{background:var(--red-string)}
+.dot-gold{background:var(--gold-string)}
+.dot-white{background:#ddd}
+.ref-note{font-size:11px;color:var(--text-muted)}
+.tune-ref-btn.playing .ref-note{color:#555}
+.tuner-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:10px}
+.tuner-header{padding:12px 18px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap}
+.tuner-title{font-size:14px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:6px}
+.tuner-status{font-size:11px;padding:3px 10px;border-radius:12px;border:1px solid var(--border);color:var(--text-muted);transition:all .3s}
+.tuner-status.active{background:rgba(64,192,128,.15);border-color:var(--green);color:var(--green)}
+.tuner-status.error{background:rgba(224,80,80,.15);border-color:var(--red-string);color:var(--red-string)}
+.tuner-body{padding:16px 18px}
+.tuner-display{display:flex;align-items:center;gap:20px;margin-bottom:14px}
+.note-display{text-align:center;min-width:80px}
+.note-name{font-size:42px;font-weight:800;line-height:1;color:var(--accent);letter-spacing:-.02em;transition:color .2s}
+.note-name.flat{color:var(--green)}
+.note-name.sharp{color:var(--blue)}
+.note-name.out{color:var(--red-string)}
+.note-octave{font-size:20px;color:var(--text-muted);vertical-align:super}
+.freq-display{font-size:13px;color:var(--text-muted);margin-top:4px}
+.cent-display{text-align:center;flex:1}
+.cent-value{font-size:28px;font-weight:700;color:var(--green);transition:color .3s}
+.cent-value.sharp{color:var(--blue)}
+.cent-value.flat{color:var(--red-string)}
+.cent-label{font-size:11px;color:var(--text-muted)}
+.meter-wrap{position:relative;height:70px;margin:10px 0 6px}
+.meter-svg{width:100%;height:70px}
+.meter-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);margin-top:2px}
+.tuner-target-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.target-btn{padding:5px 12px;border-radius:6px;border:1.5px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-size:13px;font-family:inherit;transition:all .2s}
+.target-btn:hover{border-color:var(--accent);color:var(--text)}
+.target-btn.selected{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.grade-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.grade-tabs::-webkit-scrollbar{display:none}
+.grade-tab{padding:7px 16px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.grade-tab:hover{border-color:var(--accent);color:var(--text)}
+.grade-tab.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:600}
+.main-content{max-width:960px;margin:16px auto 60px;padding:0 20px}
+.grade-block{display:none}
+.grade-block.active{display:block}
+.grade-header{margin-bottom:12px}
+.grade-title{font-size:17px;font-weight:700;color:var(--accent)}
+.grade-sub{font-size:12px;color:var(--text-muted);margin-top:2px}
+.piece-list{display:flex;flex-direction:column;gap:10px}
+.piece-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:13px 16px;display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center;transition:border-color .2s,background .2s}
+.piece-card:hover{border-color:var(--accent);background:var(--card-hover)}
+.piece-name{font-size:15px;font-weight:600}
+.piece-meta{font-size:11px;color:var(--text-muted);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+.piece-meta span{background:var(--border);padding:1px 7px;border-radius:4px}
+.piece-btns{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.bilibili-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:7px;border:1.5px solid #23ade5;background:transparent;color:#5bc8ef;cursor:pointer;font-size:12px;font-family:inherit;text-decoration:none;transition:all .2s;white-space:nowrap}
+.bilibili-btn:hover{background:rgba(35,173,229,.15);box-shadow:0 0 12px rgba(35,173,229,.3)}
+.bilibili-btn .bv-tag{font-size:9px;background:rgba(35,173,229,.2);padding:1px 4px;border-radius:3px;color:#23ade5}
+footer{text-align:center;padding:28px 20px;color:var(--text-muted);font-size:11px;border-top:1px solid var(--border);margin-top:40px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:10px 22px;border-radius:24px;font-size:13px;font-weight:600;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){.piece-card{grid-template-columns:1fr}.tuner-display{flex-direction:column;gap:10px}.note-name{font-size:36px}.tuning-ref-panel{gap:8px}}
+</style>
+</head>
+<body>
+<header>
+<div class="header-inner">
+<svg class="logo" viewBox="0 0 100 100" fill="none">
+<ellipse cx="38" cy="62" rx="14" ry="18" fill="#7a4a20" stroke="#c08040" stroke-width="2"/>
+<ellipse cx="38" cy="62" rx="10" ry="13" fill="#1a0808"/>
+<ellipse cx="38" cy="58" rx="5" ry="4" fill="#3a1a0a"/>
+<rect x="22" y="34" width="6" height="4" rx="2" fill="#c08040" transform="rotate(-20 25 36)"/>
+<rect x="50" y="34" width="6" height="4" rx="2" fill="#c08040" transform="rotate(20 53 36)"/>
+<line x1="25" y1="36" x2="38" y2="58" stroke="#e0d0a0" stroke-width=".8" opacity=".7"/>
+<line x1="51" y1="36" x2="38" y2="58" stroke="#e0d0a0" stroke-width=".8" opacity=".7"/>
+<rect x="36" y="12" width="4" height="26" rx="2" fill="#a07030"/>
+<path d="M 16 80 Q 8 60 20 42" stroke="#8B6914" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<line x1="14" y1="84" x2="22" y2="38" stroke="#c0a060" stroke-width=".7" opacity=".6"/>
+<ellipse cx="38" cy="14" rx="8" ry="3" fill="none" stroke="#c08040" stroke-width="1.5"/>
+</svg>
+<div class="header-text">
+<h1><span class="tag">DQQ专属</span>二胡考级练习</h1>
+<p>中央音乐学院 · 1-9级考级曲目 · 含B站视频 &amp; 调音器</p>
+</div>
+</div>
+</header>
+
+<div class="section-wrap">
+<div class="section-title">音准参考</div>
+<div class="tuning-ref-panel">
+<button class="tune-ref-btn" id="btn-d1" onmousedown="startTone('d1')" onmouseup="stopTone()" onmouseleave="stopTone()" ontouchstart="event.preventDefault();startTone('d1')" ontouchend="stopTone()">
+<span class="dot dot-red"></span>内弦 D1<span class="ref-note">≈73 Hz</span>
+</button>
+<button class="tune-ref-btn" id="btn-a1" onmousedown="startTone('a1')" onmouseup="stopTone()" onmouseleave="stopTone()" ontouchstart="event.preventDefault();startTone('a1')" ontouchend="stopTone()">
+<span class="dot dot-gold"></span>外弦 A1<span class="ref-note">≈110 Hz</span>
+</button>
+<button class="tune-ref-btn" id="btn-a4" onmousedown="startTone('a4')" onmouseup="stopTone()" onmouseleave="stopTone()" ontouchstart="event.preventDefault();startTone('a4')" ontouchend="stopTone()">
+<span class="dot dot-white"></span>标准音 A4<span class="ref-note">440 Hz</span>
+</button>
+<button class="tune-ref-btn" id="btn-d4" onmousedown="startTone('d4')" onmouseup="stopTone()" onmouseleave="stopTone()" ontouchstart="event.preventDefault();startTone('d4')" ontouchend="stopTone()">
+<span class="dot dot-red"></span>D音 D4<span class="ref-note">≈293 Hz</span>
+</button>
+<button class="tune-ref-btn" id="btn-e4" onmousedown="startTone('e4')" onmouseup="stopTone()" onmouseleave="stopTone()" ontouchstart="event.preventDefault();startTone('e4')" ontouchend="stopTone()">
+<span class="dot dot-gold"></span>E音 E4<span class="ref-note">≈329 Hz</span>
+</button>
+<span style="font-size:11px;color:var(--text-muted);margin-left:auto;">长按发声，松手停止</span>
+</div>
+</div>
+
+<div class="section-wrap">
+<div class="section-title">实时调音器</div>
+<div class="tuner-card">
+<div class="tuner-header">
+<span class="tuner-title">二胡调音器 <span style="font-size:11px;color:var(--text-muted);font-weight:400;">（需授权麦克风）</span></span>
+<span class="tuner-status" id="tunerStatus">未启动</span>
+</div>
+<div class="tuner-body">
+<div class="tuner-display">
+<div class="note-display">
+<div class="note-name" id="noteName">--</div>
+<div class="freq-display"><span id="detectedFreq">--</span> Hz</div>
+</div>
+<div class="cent-display">
+<div class="cent-value" id="centValue">--</div>
+<div class="cent-label">音分偏差</div>
+</div>
+</div>
+<div class="meter-wrap">
+<svg class="meter-svg" viewBox="0 0 300 70" preserveAspectRatio="xMidYMid meet">
+<defs>
+<linearGradient id="meterGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" style="stop-color:#e05050"/>
+<stop offset="35%" style="stop-color:#e8a030"/>
+<stop offset="50%" style="stop-color:#40c080"/>
+<stop offset="65%" style="stop-color:#e8a030"/>
+<stop offset="100%" style="stop-color:#e05050"/>
+</linearGradient>
+</defs>
+<path d="M 20 65 Q 150 5 280 65" fill="none" stroke="url(#meterGrad)" stroke-width="4" opacity=".4"/>
+<line x1="40" y1="48" x2="40" y2="58" stroke="#555" stroke-width="1.5"/>
+<line x1="95" y1="25" x2="95" y2="38" stroke="#555" stroke-width="1"/>
+<line x1="150" y1="12" x2="150" y2="63" stroke="#40c080" stroke-width="1.5"/>
+<line x1="205" y1="25" x2="205" y2="38" stroke="#555" stroke-width="1"/>
+<line x1="260" y1="48" x2="260" y2="58" stroke="#555" stroke-width="1.5"/>
+<line id="tunerNeedle" x1="150" y1="62" x2="150" y2="15" stroke="#e8a030" stroke-width="2.5" stroke-linecap="round" style="transform-origin:150px 62px; transform:rotate(0deg); transition: transform .08s;"/>
+<circle id="needleDot" cx="150" cy="14" r="4" fill="#e8a030" style="transform-origin:150px 14px; transform:rotate(0deg); transition: transform .08s;"/>
+</svg>
+</div>
+<div class="meter-labels"><span>-50</span><span>-25</span><span>0 (准)</span><span>+25</span><span>+50</span></div>
+<div class="tuner-target-btns">
+<span style="font-size:12px;color:var(--text-muted);margin-right:4px;align-self:center;">目标弦：</span>
+<button class="target-btn selected" id="tgt-a1" onclick="setTarget('a1')">外弦 A1</button>
+<button class="target-btn" id="tgt-d1" onclick="setTarget('d1')">内弦 D1</button>
+<button class="target-btn" id="tgt-a4" onclick="setTarget('a4')">标准音 A4</button>
+<button class="target-btn" id="tgt-d4" onclick="setTarget('d4')">D音 D4</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section-wrap">
+<div class="section-title">曲目目录</div>
+<div class="grade-tabs">
+<button class="grade-tab active" onclick="showGrade(1)">一级</button>
+<button class="grade-tab" onclick="showGrade(2)">二级</button>
+<button class="grade-tab" onclick="showGrade(3)">三级</button>
+<button class="grade-tab" onclick="showGrade(4)">四级</button>
+<button class="grade-tab" onclick="showGrade(5)">五级</button>
+<button class="grade-tab" onclick="showGrade(6)">六级</button>
+<button class="grade-tab" onclick="showGrade(7)">七级</button>
+<button class="grade-tab" onclick="showGrade(8)">八级</button>
+<button class="grade-tab" onclick="showGrade(9)">九级</button>
+</div>
+</div>
+
+<main class="main-content">
+
+<div class="grade-block active" id="grade-1">
+<div class="grade-header"><div class="grade-title">一级</div><div class="grade-sub">D调/G调 · 长弓、分弓基础</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">田园春色</div><div class="piece-meta"><span>陈振铎 曲</span><span>D调 1=G(1-)</span><span>连弓分弓</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1Cx411m7h7/" target="_blank" rel="noopener">宋飞版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://www.bilibili.com/video/BV17u411Z79w/" target="_blank" rel="noopener">教学版 <span class="bv-tag">BV</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">凤阳花鼓</div><div class="piece-meta"><span>安徽民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+凤阳花鼓+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">玛依拉</div><div class="piece-meta"><span>新疆民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+玛依拉+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">金色的太阳</div><div class="piece-meta"><span>藏族民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+金色的太阳" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">西藏舞曲</div><div class="piece-meta"><span>西藏民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+西藏舞曲+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">山村初晓</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+山村初晓" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">箫</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(1-)</span><span>模拟箫声</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+箫+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-2">
+<div class="grade-header"><div class="grade-title">二级</div><div class="grade-sub">D调/G调 · 揉弦、换弦初步</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">马兰花开</div><div class="piece-meta"><span>刘明源 编曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+马兰花开+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">森吉德玛</div><div class="piece-meta"><span>蒙古族民歌</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+森吉德玛+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">送别</div><div class="piece-meta"><span>J.弘恩 曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+送别+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">在北京的金山上</div><div class="piece-meta"><span>藏族民歌</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+在北京的金山上" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">茉莉花</div><div class="piece-meta"><span>江苏民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+茉莉花+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">绣荷包</div><div class="piece-meta"><span>山西民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+绣荷包+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">敖包相会</div><div class="piece-meta"><span>蒙古族民歌</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+敖包相会+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">放风筝</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+放风筝+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">洁白的哈达</div><div class="piece-meta"><span>藏族民歌</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+洁白的哈达" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-3">
+<div class="grade-header"><div class="grade-title">三级</div><div class="grade-sub">D调/F调 · 揉弦、换弦、颤音综合</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">良宵</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+良宵+刘天华+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">黄水谣</div><div class="piece-meta"><span>冼星海 曲</span><span>D调 1=G(1-)</span><span>抗日名曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+黄水谣+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">小花鼓</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+小花鼓+刘天华" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">剑舞</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+剑舞+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">故乡的亲人</div><div class="piece-meta"><span>中外名曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+故乡的亲人+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">绣金匾</div><div class="piece-meta"><span>陕北民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+绣金匾+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">八月桂花遍地开</div><div class="piece-meta"><span>江西民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+八月桂花遍地开" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-4">
+<div class="grade-header"><div class="grade-title">四级</div><div class="grade-sub">C调/D调/F调 · 快弓、颤指音、拨弦</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">拉骆驼</div><div class="piece-meta"><span>曾寻 曲</span><span>C调 1=C(2-6)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+拉骆驼+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">丰收序歌</div><div class="piece-meta"><span>车向前 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+丰收序歌" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">喜唱丰收</div><div class="piece-meta"><span>杨惠林 曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+喜唱丰收" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">浦江圆舞曲</div><div class="piece-meta"><span>贺思真 曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+浦江圆舞曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">赛马</div><div class="piece-meta"><span>黄海怀 曲</span><span>D调 1=G(5-2)</span><span>快弓·拨弦·颤音</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1eT411s7qY/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+赛马+黄海怀" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">人勤春来早</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+人勤春来早" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-5">
+<div class="grade-header"><div class="grade-title">五级</div><div class="grade-sub">C调/D调/bB调 · 滑揉、垫指滑音</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">阿美族舞曲</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+阿美族舞曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">烛影摇红</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1sr4y1W7p3/" target="_blank" rel="noopener">宋飞版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+烛影摇红+演奏" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">春韵</div><div class="piece-meta"><span>刘明源 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+春韵+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">北京有个金太阳</div><div class="piece-meta"><span>藏族民歌</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+北京有个金太阳" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">乡梦</div><div class="piece-meta"><span>蒋才如 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+乡梦+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">好江南</div><div class="piece-meta"><span>王国潼 曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+好江南+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">山村变了样</div><div class="piece-meta"><span>曾寻 曲</span><span>C调 1=C(2-6)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+山村变了样" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">喜送公粮</div><div class="piece-meta"><span>顾武祥 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+喜送公粮" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-6">
+<div class="grade-header"><div class="grade-title">六级</div><div class="grade-sub">bB调/F调 · 快速换把、复杂节奏</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">摘棉</div><div class="piece-meta"><span>鲁日融 编曲</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+摘棉" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">月夜</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1au4y1m7bD/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+月夜+刘天华" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">火车开进彝家寨</div><div class="piece-meta"><span>杨宝智 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+火车开进彝家寨" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">花鼓调</div><div class="piece-meta"><span>刘明源 编曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+花鼓调+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">赞歌（金珠玛米赞）</div><div class="piece-meta"><span>王洛宾 曲</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+金珠玛米赞" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">赶集</div><div class="piece-meta"><span>曾寻 曲</span><span>C调 1=C(2-6)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+赶集" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">苏南小曲</div><div class="piece-meta"><span>朱昌耀 编曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+苏南小曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-7">
+<div class="grade-header"><div class="grade-title">七级</div><div class="grade-sub">bB调/F调/G调 · 高难度技巧综合</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">阳关三叠</div><div class="piece-meta"><span>古曲/闵惠芬 改编</span><span>D调 1=G(5-2)</span><span>传统名曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+阳关三叠+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">红水河畔忆亲人</div><div class="piece-meta"><span>彭修文 曲</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+红水河畔忆亲人" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">春诗</div><div class="piece-meta"><span>钟耀伦 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+春诗" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">迷胡调</div><div class="piece-meta"><span>鲁日融 曲</span><span>C调 1=C(2-6)</span><span>陕西风格</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+迷胡调" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">江河水</div><div class="piece-meta"><span>黄海怀 移植</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+江河水+黄海怀" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">空山鸟语</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>模拟鸟鸣·代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV16r4y1P7N6/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1ov4y1p7da/" target="_blank" rel="noopener">示范伴奏 <span class="bv-tag">BV</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">草原新牧民</div><div class="piece-meta"><span>马达 曲</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+草原新牧民" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-8">
+<div class="grade-header"><div class="grade-title">八级</div><div class="grade-sub">bB调/F调/G调 · 复杂情感表达</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">山东小曲</div><div class="piece-meta"><span>鲁日融 曲</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+山东小曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">江南春色</div><div class="piece-meta"><span>朱昌耀 曲</span><span>D调 1=G(5-2)</span><span>江南风格·代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1Rz4y1s7yD/" target="_blank" rel="noopener">朱昌耀版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+江南春色+演奏" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">听松</div><div class="piece-meta"><span>华彦钧（阿炳）曲</span><span>D调 1=G(5-2)</span><span>阿炳代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+听松+阿炳" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">悲歌</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+悲歌+刘天华" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">怀乡行</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+怀乡行" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">秦腔主题随想曲</div><div class="piece-meta"><span>鲁日融 曲</span><span>D调 1=G(5-2)</span><span>秦派代表</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV11H4y1q7GV/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+秦腔主题随想曲" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">豫北叙事曲</div><div class="piece-meta"><span>刘文金 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+豫北叙事曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">流波曲</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+流波曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">葡萄熟了</div><div class="piece-meta"><span>周维 曲</span><span>D调 1=G(5-2)</span><span>新疆风格</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+葡萄熟了" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+<div class="grade-block" id="grade-9">
+<div class="grade-header"><div class="grade-title">九级</div><div class="grade-sub">bB调/F调 · 高阶艺术表现</div></div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">独弦操（忧心曲）</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>高难度技巧</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+独弦操" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">壮别（一枝花）</div><div class="piece-meta"><span>任同样 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+一枝花+壮别" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">蓝花花叙事曲</div><div class="piece-meta"><span>关铭 曲</span><span>G调 1=D(5-2)</span><span>叙事性·名曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+蓝花花叙事曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">闲居吟</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+闲居吟" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">二泉映月</div><div class="piece-meta"><span>华彦钧（阿炳）曲</span><span>D调 1=G(5-2)</span><span>阿炳巅峰·世界名曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1434y137s9/" target="_blank" rel="noopener">历史录音版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+二泉映月+阿炳" target="_blank" rel="noopener">名家版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">三门峡畅想曲</div><div class="piece-meta"><span>王国潼 曲</span><span>D调 1=G(5-2)</span><span>技术性作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+三门峡畅想曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">病中吟</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>处女作·代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+病中吟+刘天华" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+</div>
+
+</main>
+
+<footer>
+<p>DQQ专属 · 二胡考级练习工具 · 央音1-9级曲目参考</p>
+<p>音准参考 Web Audio API · 调音器实时检测 · 曲目数据综合整理</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function showGrade(n){
+document.querySelectorAll('.grade-block').forEach(function(b){b.classList.remove('active')});
+document.querySelectorAll('.grade-tab').forEach(function(t){t.classList.remove('active')});
+document.getElementById('grade-'+n).classList.add('active');
+document.querySelectorAll('.grade-tab')[n-1].classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+var audioCtx=null;
+var activeOscs={};
+var REFFREQS={d1:73.4,a1:110,a4:440,d4:293.66,e4:329.63};
+function getACtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function startTone(id){
+try{
+var ctx=getACtx();
+if(ctx.state==='suspended')ctx.resume();
+stopToneById(id);
+var osc=ctx.createOscillator(),gain=ctx.createGain();
+osc.type='sine';osc.frequency.value=REFFREQS[id];
+gain.gain.setValueAtTime(0,ctx.currentTime);
+gain.gain.linearRampToValueAtTime(.4,ctx.currentTime+.05);
+osc.connect(gain);gain.connect(ctx.destination);
+osc.start();activeOscs[id]={osc:osc,gain:gain};
+document.getElementById('btn-'+id).classList.add('playing');
+showToast('发声: '+REFFREQS[id].toFixed(1)+' Hz');
+}catch(e){showToast('浏览器不支持 Web Audio API');}
+}
+function stopToneById(id){
+var item=activeOscs[id];
+if(item){
+var ctx=getACtx();
+item.gain.gain.linearRampToValueAtTime(0,ctx.currentTime+.15);
+item.osc.stop(ctx.currentTime+.2);
+delete activeOscs[id];
+var btn=document.getElementById('btn-'+id);
+if(btn)btn.classList.remove('playing');
+}
+}
+function stopTone(){
+Object.keys(activeOscs).forEach(function(id){
+var item=activeOscs[id];
+if(item){
+var ctx=getACtx();
+item.gain.gain.linearRampToValueAtTime(0,ctx.currentTime+.15);
+item.osc.stop(ctx.currentTime+.2);
+var btn=document.getElementById('btn-'+id);
+if(btn)btn.classList.remove('playing');
+}
+});
+activeOscs={};
+}
+var tunerAnalyser=null;
+var tunerRafId=null;
+var TUNER_TARGETS={d1:73.4,a1:110,a4:440,d4:293.66};
+var currentTarget='a1';
+var NOTE_NAMES=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+function freqToNote(freq){
+if(!freq||freq<20||freq>5000)return null;
+var A4=440;
+var semitones=12*Math.log2(freq/A4);
+var rounded=Math.round(semitones);
+var cents=Math.round((semitones-rounded)*100);
+var noteNum=rounded+69;
+var octave=Math.floor(noteNum/12)-1;
+var noteName=NOTE_NAMES[noteNum%12];
+return{noteName:noteName,octave:octave,cents:cents,freq:freq,noteNum:noteNum};
+}
+function startTuner(){
+var statusEl=document.getElementById('tunerStatus');
+statusEl.textContent='请求权限...';
+statusEl.className='tuner-status';
+navigator.mediaDevices.getUserMedia({audio:true,video: false}).then(function(stream){
+var ctx=getACtx();
+if(ctx.state==='suspended')ctx.resume();
+var source=ctx.createMediaStreamSource(stream);
+tunerAnalyser=ctx.createAnalyser();
+tunerAnalyser.fftSize=4096;
+tunerAnalyser.smoothingTimeConstant=.8;
+source.connect(tunerAnalyser);
+statusEl.textContent='● 监听中';
+statusEl.className='tuner-status active';
+detectPitch();
+}).catch(function(err){
+statusEl.textContent='麦克风拒绝';
+statusEl.className='tuner-status error';
+showToast('麦克风权限被拒绝，请允许访问');
+});
+}
+function detectPitch(){
+if(!tunerAnalyser)return;
+var buf=new Float32Array(tunerAnalyser.fftSize);
+tunerAnalyser.getFloatTimeDomainData(buf);
+var freq=autoCorrelate(buf, audioCtx.sampleRate);
+if(freq>0){
+var info=freqToNote(freq);
+if(info)updateTunerDisplay(info);
+}else{
+document.getElementById('noteName').textContent='--';
+document.getElementById('noteName').className='note-name';
+document.getElementById('centValue').textContent='--';
+document.getElementById('centValue').className='cent-value';
+document.getElementById('detectedFreq').textContent='--';
+resetNeedle();
+}
+tunerRafId = window.requestAnimationFrame(detectPitch);
+}
+function autoCorrelate(buffer, sampleRate){
+  var SIZE = buffer.length;
+  // 计算RMS（音量）
+  var sum = 0;
+  for(var i=0; i<SIZE; i++) sum += buffer[i]*buffer[i];
+  var rms = Math.sqrt(sum / SIZE);
+  if(rms < 0.01) return -1;  // 太安静
+  // 自相关检测基频
+  var bestOffset = -1;
+  var bestCorr = -1;
+  var foundGood = false;
+  var minPeriod = Math.max(1, Math.floor(sampleRate / 500));
+  var maxPeriod = Math.floor(sampleRate / 50);
+  for(var offset = minPeriod; offset < maxPeriod && offset < SIZE; offset++){
+    var corr = 0;
+    var norm = 0;
+    var len = SIZE - offset;
+    for(var i=0; i<len; i++){
+      corr += buffer[i] * buffer[i+offset];
+      norm += buffer[i] * buffer[i];
+    }
+    if(norm > 0) corr = corr / (Math.sqrt(norm * norm) + 1e-10);
+    if(corr > 0.9 && corr > bestCorr){
+      bestCorr = corr;
+      bestOffset = offset;
+      foundGood = true;
+    } else if(foundGood){
+      break;
+    }
+  }
+  if(bestOffset === -1 || bestCorr < 0.5) return -1;
+  return sampleRate / bestOffset;
+}
+function updateTunerDisplay(info){
+var noteNameEl=document.getElementById('noteName');
+var centEl=document.getElementById('centValue');
+var freqEl=document.getElementById('detectedFreq');
+noteNameEl.textContent=info.noteName;
+freqEl.textContent=info.freq.toFixed(1);
+var targetFreq=TUNER_TARGETS[currentTarget];
+  var cents = Math.round(1200 * Math.log2(info.freq / targetFreq));
+var absCents=Math.abs(cents);
+if(absCents<=10){
+noteNameEl.className='note-name flat';
+centEl.style.color='var(--green)';
+}else if(cents>0){
+noteNameEl.className='note-name sharp';
+centEl.style.color='var(--blue)';
+}else{
+noteNameEl.className='note-name out';
+centEl.style.color='var(--red-string)';
+}
+centEl.textContent=(cents>=0?'+':'')+cents+'¢';
+var clampedCents=Math.max(-50,Math.min(50,cents));
+var angle=clampedCents*1.8;
+var needle=document.getElementById('tunerNeedle');
+var dot=document.getElementById('needleDot');
+needle.style.transform='rotate('+angle+'deg)';
+dot.style.transform='rotate('+angle+'deg)';
+dot.style.fill=absCents<=10?'var(--green)':'var(--accent)';
+}
+function resetNeedle(){
+var needle=document.getElementById('tunerNeedle');
+var dot=document.getElementById('needleDot');
+needle.style.transform='rotate(0deg)';
+dot.style.transform='rotate(0deg)';
+dot.style.fill='var(--accent)';
+}
+function setTarget(id){
+currentTarget=id;
+document.querySelectorAll('.target-btn').forEach(function(b){b.classList.remove('selected')});
+document.getElementById('tgt-'+id).classList.add('selected');
+}
+function showToast(msg){
+var t=document.getElementById('toast');
+t.textContent=msg;
+t.classList.add('show');
+clearTimeout(t._timer);
+t._timer=setTimeout(function(){t.classList.remove('show')},2500);
+}
+window.addEventListener('load', function(){ setTimeout(startTuner, 800); });
+</script>
+</body>
+</html>
