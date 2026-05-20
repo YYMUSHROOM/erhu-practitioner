@@ -79,6 +79,39 @@ footer{text-align:center;padding:28px 20px;color:var(--text-muted);font-size:11p
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:#000;padding:10px 22px;border-radius:24px;font-size:13px;font-weight:600;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
 @media(max-width:600px){.piece-card{grid-template-columns:1fr}.tuner-display{flex-direction:column;gap:10px}.note-name{font-size:36px}.tuning-ref-panel{gap:8px}}
+
+/* B站嵌入式播放器 */
+.video-embed-container {
+  margin: 8px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+}
+.bilibili-player {
+  width: 100%;
+  height: 380px;
+  display: block;
+  border: none;
+}
+.video-actions {
+  background: #1a1a2e;
+  padding: 6px 12px;
+  text-align: right;
+}
+.video-actions a {
+  color: #00a1d6;
+  text-decoration: none;
+  font-size: 13px;
+}
+.video-actions a:hover {
+  color: #00b5e5;
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .bilibili-player {
+    height: 250px;
+  }
+}
 </style>
 </head>
 <body>
@@ -197,7 +230,27 @@ footer{text-align:center;padding:28px 20px;color:var(--text-muted);font-size:11p
 <div class="grade-block active" id="grade-1">
 <div class="grade-header"><div class="grade-title">一级</div><div class="grade-sub">D调/G调 · 长弓、分弓基础</div></div>
 <div class="piece-list">
-<div class="piece-card"><div><div class="piece-name">田园春色</div><div class="piece-meta"><span>陈振铎 曲</span><span>D调 1=G(1-)</span><span>连弓分弓</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1Cx411m7h7/" target="_blank" rel="noopener">宋飞版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://www.bilibili.com/video/BV17u411Z79w/" target="_blank" rel="noopener">教学版 <span class="bv-tag">BV</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">田园春色</div><div class="piece-meta"><span>陈振铎 曲</span><span>D调 1=G(1-)</span><span>连弓分弓</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1Cx411m7h7&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1Cx411m7h7&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1Cx411m7h7/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div>
+  </div>
+</div><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV17u411Z79w&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV17u411Z79w&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV17u411Z79w/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div>
+  </div>
+</div></div></div>
 <div class="piece-card"><div><div class="piece-name">凤阳花鼓</div><div class="piece-meta"><span>安徽民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+凤阳花鼓+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">玛依拉</div><div class="piece-meta"><span>新疆民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+玛依拉+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">金色的太阳</div><div class="piece-meta"><span>藏族民歌</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+金色的太阳" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
@@ -242,7 +295,17 @@ footer{text-align:center;padding:28px 20px;color:var(--text-muted);font-size:11p
 <div class="piece-card"><div><div class="piece-name">丰收序歌</div><div class="piece-meta"><span>车向前 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+丰收序歌" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">喜唱丰收</div><div class="piece-meta"><span>杨惠林 曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+喜唱丰收" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">浦江圆舞曲</div><div class="piece-meta"><span>贺思真 曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+浦江圆舞曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">赛马</div><div class="piece-meta"><span>黄海怀 曲</span><span>D调 1=G(5-2)</span><span>快弓·拨弦·颤音</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1eT411s7qY/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+赛马+黄海怀" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">赛马</div><div class="piece-meta"><span>黄海怀 曲</span><span>D调 1=G(5-2)</span><span>快弓·拨弦·颤音</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1eT411s7qY&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1eT411s7qY&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1eT411s7qY/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div>
+  </div>
+</div><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+赛马+黄海怀" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">人勤春来早</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(1-)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+人勤春来早" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 </div>
 </div>
@@ -251,7 +314,17 @@ footer{text-align:center;padding:28px 20px;color:var(--text-muted);font-size:11p
 <div class="grade-header"><div class="grade-title">五级</div><div class="grade-sub">C调/D调/bB调 · 滑揉、垫指滑音</div></div>
 <div class="piece-list">
 <div class="piece-card"><div><div class="piece-name">阿美族舞曲</div><div class="piece-meta"><span>民间乐曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+阿美族舞曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">烛影摇红</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1sr4y1W7p3/" target="_blank" rel="noopener">宋飞版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+烛影摇红+演奏" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">烛影摇红</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1sr4y1W7p3&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1sr4y1W7p3&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1sr4y1W7p3/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div>
+  </div>
+</div><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+烛影摇红+演奏" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">春韵</div><div class="piece-meta"><span>刘明源 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+春韵+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">北京有个金太阳</div><div class="piece-meta"><span>藏族民歌</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+北京有个金太阳" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">乡梦</div><div class="piece-meta"><span>蒋才如 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+乡梦+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
@@ -265,7 +338,17 @@ footer{text-align:center;padding:28px 20px;color:var(--text-muted);font-size:11p
 <div class="grade-header"><div class="grade-title">六级</div><div class="grade-sub">bB调/F调 · 快速换把、复杂节奏</div></div>
 <div class="piece-list">
 <div class="piece-card"><div><div class="piece-name">摘棉</div><div class="piece-meta"><span>鲁日融 编曲</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+摘棉" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">月夜</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1au4y1m7bD/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+月夜+刘天华" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">月夜</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1au4y1m7bD&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1au4y1m7bD&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1au4y1m7bD/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div>
+  </div>
+</div><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+月夜+刘天华" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">火车开进彝家寨</div><div class="piece-meta"><span>杨宝智 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+火车开进彝家寨" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">花鼓调</div><div class="piece-meta"><span>刘明源 编曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+花鼓调+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 <div class="piece-card"><div><div class="piece-name">赞歌（金珠玛米赞）</div><div class="piece-meta"><span>王洛宾 曲</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+金珠玛米赞" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
@@ -275,46 +358,177 @@ footer{text-align:center;padding:28px 20px;color:var(--text-muted);font-size:11p
 </div>
 
 <div class="grade-block" id="grade-7">
-<div class="grade-header"><div class="grade-title">七级</div><div class="grade-sub">bB调/F调/G调 · 高难度技巧综合</div></div>
+<div class="grade-header"><div class="grade-title">七级</div><div class="grade-sub">练习曲 + 乐曲</div></div>
+<div style="margin:16px 0 10px;font-size:13px;font-weight:600;color:var(--accent);">练习曲</div>
 <div class="piece-list">
-<div class="piece-card"><div><div class="piece-name">阳关三叠</div><div class="piece-meta"><span>古曲/闵惠芬 改编</span><span>D调 1=G(5-2)</span><span>传统名曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+阳关三叠+演奏" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">红水河畔忆亲人</div><div class="piece-meta"><span>彭修文 曲</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+红水河畔忆亲人" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">春诗</div><div class="piece-meta"><span>钟耀伦 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+春诗" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">迷胡调</div><div class="piece-meta"><span>鲁日融 曲</span><span>C调 1=C(2-6)</span><span>陕西风格</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+迷胡调" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">江河水</div><div class="piece-meta"><span>黄海怀 移植</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+江河水+黄海怀" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">空山鸟语</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>模拟鸟鸣·代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV16r4y1P7N6/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1ov4y1p7da/" target="_blank" rel="noopener">示范伴奏 <span class="bv-tag">BV</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">草原新牧民</div><div class="piece-meta"><span>马达 曲</span><span>G调 1=D(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+草原新牧民" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">1. 琶音综合练习</div><div class="piece-meta"><span>必考</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+琶音综合练习" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">2. 恰尔达什（片段）</div><div class="piece-meta"><span>必考</span><span>赵砚臣 编曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+恰尔达什+赵砚臣" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">3. 小二度音程模进练习</div><div class="piece-meta"><span>必考</span><span>[意]蒙蒂 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+小二度音程模进练习+蒙蒂" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">4. 五声音阶模进与转调练习</div><div class="piece-meta"><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+五声音阶模进与转调练习+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">5. 快速分弓练习</div><div class="piece-meta"><span>刘长福 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+快速分弓练习+刘长福" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">6. 五声音阶快速换把练习</div><div class="piece-meta"><span>金伟 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+五声音阶快速换把练习+金伟" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">7. 快速换把与跳把练习</div><div class="piece-meta"><span>王国潼 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+快速换把与跳把练习+王国潼" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">8. 八度练习</div><div class="piece-meta"><span>赵寒阳、果俊明 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+八度练习+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+<div style="margin:20px 0 10px;font-size:13px;font-weight:600;color:var(--accent);">乐曲</div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">1. 春诗</div><div class="piece-meta"><span>必考</span><span>钟义良 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV16k4y1z7hV&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV16k4y1z7hV/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">2. 豫北叙事曲</div><div class="piece-meta"><span>必考</span><span>刘文金 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1Eb411m7zR&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1Eb411m7zR/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">3. 草原新牧民</div><div class="piece-meta"><span>必考</span><span>刘长福 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1JC4y167Bn&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1JC4y167Bn/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">4. 洪湖人民的心愿</div><div class="piece-meta"><span>张敬安、欧阳谦叔 原曲 / 闵惠芬 编曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1PK4y1H798&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1PK4y1H798/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">5. 姑苏春晓</div><div class="piece-meta"><span>邓建栋 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1TLFYzHE7e&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1TLFYzHE7e/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">6. 山村小景</div><div class="piece-meta"><span>陈耀星 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1FbFYzkEKo&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1FbFYzkEKo/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">7. 豫乡行</div><div class="piece-meta"><span>宋国生 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1mLFYzHEgV&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1mLFYzHEgV/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
 </div>
 </div>
-
 <div class="grade-block" id="grade-8">
-<div class="grade-header"><div class="grade-title">八级</div><div class="grade-sub">bB调/F调/G调 · 复杂情感表达</div></div>
+<div class="grade-header"><div class="grade-title">八级</div><div class="grade-sub">练习曲 + 乐曲</div></div>
+<div style="margin:16px 0 10px;font-size:13px;font-weight:600;color:var(--accent);">练习曲</div>
 <div class="piece-list">
-<div class="piece-card"><div><div class="piece-name">山东小曲</div><div class="piece-meta"><span>鲁日融 曲</span><span>bB调 1=bB(4-i)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+山东小曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">江南春色</div><div class="piece-meta"><span>朱昌耀 曲</span><span>D调 1=G(5-2)</span><span>江南风格·代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1Rz4y1s7yD/" target="_blank" rel="noopener">朱昌耀版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+江南春色+演奏" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">听松</div><div class="piece-meta"><span>华彦钧（阿炳）曲</span><span>D调 1=G(5-2)</span><span>阿炳代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+听松+阿炳" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">悲歌</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+悲歌+刘天华" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">怀乡行</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+怀乡行" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">秦腔主题随想曲</div><div class="piece-meta"><span>鲁日融 曲</span><span>D调 1=G(5-2)</span><span>秦派代表</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV11H4y1q7GV/" target="_blank" rel="noopener">名家演奏 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+秦腔主题随想曲" target="_blank" rel="noopener">更多版本 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">豫北叙事曲</div><div class="piece-meta"><span>刘文金 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+豫北叙事曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">流波曲</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+流波曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">葡萄熟了</div><div class="piece-meta"><span>周维 曲</span><span>D调 1=G(5-2)</span><span>新疆风格</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+葡萄熟了" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">1. 快速交替指练习</div><div class="piece-meta"><span>必考</span><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+快速交替指练习+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">2. 活指换弦练习</div><div class="piece-meta"><span>必考</span><span>赵砚臣 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+活指换弦练习+赵砚臣" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">3. D大调综合练习</div><div class="piece-meta"><span>严洁敏 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+D大调综合练习+严洁敏" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">4. 混合节奏练习</div><div class="piece-meta"><span>刘长福 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+混合节奏练习+刘长福" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">5. 快速大跳练习</div><div class="piece-meta"><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+快速大跳练习+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">6. 综合练习</div><div class="piece-meta"><span>王国潼 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+综合练习+王国潼+八级" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">7. 传统把位换把练习</div><div class="piece-meta"><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+传统把位换把练习+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">8. 五声音阶练习</div><div class="piece-meta"><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+五声音阶练习+赵寒阳+八级" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+<div style="margin:20px 0 10px;font-size:13px;font-weight:600;color:var(--accent);">乐曲</div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">1. 秦腔主题随想曲</div><div class="piece-meta"><span>必考</span><span>赵震霄、鲁日融 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV11H4y1q7GV&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV11H4y1q7GV/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">2. 三门峡畅想曲</div><div class="piece-meta"><span>必考</span><span>刘文金 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1q4411p7kB&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1q4411p7kB/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">3. 二泉映月</div><div class="piece-meta"><span>必考</span><span>华彦钧 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1434y137s9&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1434y137s9/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">4. 病中吟</div><div class="piece-meta"><span>刘天华 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV14F411e7Gf&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV14F411e7Gf/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">5. 寒春风曲</div><div class="piece-meta"><span>华彦钧 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1Gu4y1E7HL&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1Gu4y1E7HL/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">6. 独弦操</div><div class="piece-meta"><span>刘天华 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1HeWgzVEBQ&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1HeWgzVEBQ/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">7. 苍山歌声永不落</div><div class="piece-meta"><span>刘文金 编曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+苍山歌声永不落" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
 </div>
 </div>
-
 <div class="grade-block" id="grade-9">
-<div class="grade-header"><div class="grade-title">九级</div><div class="grade-sub">bB调/F调 · 高阶艺术表现</div></div>
+<div class="grade-header"><div class="grade-title">九级</div><div class="grade-sub">练习曲 + 乐曲</div></div>
+<div style="margin:16px 0 10px;font-size:13px;font-weight:600;color:var(--accent);">练习曲</div>
 <div class="piece-list">
-<div class="piece-card"><div><div class="piece-name">独弦操（忧心曲）</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>高难度技巧</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+独弦操" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">壮别（一枝花）</div><div class="piece-meta"><span>任同样 曲</span><span>D调 1=G(5-2)</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+一枝花+壮别" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">蓝花花叙事曲</div><div class="piece-meta"><span>关铭 曲</span><span>G调 1=D(5-2)</span><span>叙事性·名曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+蓝花花叙事曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">闲居吟</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+闲居吟" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">二泉映月</div><div class="piece-meta"><span>华彦钧（阿炳）曲</span><span>D调 1=G(5-2)</span><span>阿炳巅峰·世界名曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://www.bilibili.com/video/BV1434y137s9/" target="_blank" rel="noopener">历史录音版 <span class="bv-tag">BV</span></a><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+二泉映月+阿炳" target="_blank" rel="noopener">名家版本 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">三门峡畅想曲</div><div class="piece-meta"><span>王国潼 曲</span><span>D调 1=G(5-2)</span><span>技术性作品</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+三门峡畅想曲" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
-<div class="piece-card"><div><div class="piece-name">病中吟</div><div class="piece-meta"><span>刘天华 曲</span><span>D调 1=G(5-2)</span><span>处女作·代表作</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/?keyword=二胡+病中吟+刘天华" target="_blank" rel="noopener">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">1. 固定音型换弦练习</div><div class="piece-meta"><span>必考</span><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+固定音型换弦练习+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">2. 转调综合练习</div><div class="piece-meta"><span>必考</span><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+转调综合练习+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">3. 音乐会练习曲</div><div class="piece-meta"><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+音乐会练习曲+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">4. 五声音阶快弓练习</div><div class="piece-meta"><span>刘长福 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+五声音阶快弓练习+刘长福" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">5. 快速换把与跳把练习</div><div class="piece-meta"><span>王国潼 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+快速换把与跳把练习+王国潼+九级" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">6. 综合练习</div><div class="piece-meta"><span>王国潼 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+综合练习+王国潼+九级" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">7. 天山风情练习曲</div><div class="piece-meta"><span>王震球 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+天山风情练习曲" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+<div class="piece-card"><div><div class="piece-name">8. 无穷动</div><div class="piece-meta"><span>赵寒阳 曲</span></div></div><div class="piece-btns"><a class="bilibili-btn" href="https://search.bilibili.com/all?keyword=二胡+无穷动+赵寒阳" target="_blank">B站观看 <span class="bv-tag">搜索</span></a></div></div>
+</div>
+<div style="margin:20px 0 10px;font-size:13px;font-weight:600;color:var(--accent);">乐曲</div>
+<div class="piece-list">
+<div class="piece-card"><div><div class="piece-name">1. 一枝花</div><div class="piece-meta"><span>必考</span><span>张式业 编曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1sq4y1p7xY&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1sq4y1p7xY/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">2. 蓝花花叙事曲</div><div class="piece-meta"><span>必考</span><span>关铭 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1jk4y1y7FH&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1jk4y1y7FH/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">3. 新婚别</div><div class="piece-meta"><span>必考</span><span>张晓峰、朱晓谷 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1v36uYZEsS&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1v36uYZEsS/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">4. 长城随想</div><div class="piece-meta"><span>刘文金 曲</span><span>代表作</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1QL4y1a7W1&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1QL4y1a7W1/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">5. 阳光照耀着塔什库尔干</div><div class="piece-meta"><span>陈钢 编曲</span><span>小提琴移植</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1gx411g7XE&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1gx411g7XE/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">6. 红梅随想曲</div><div class="piece-meta"><span>吴厚元 曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1zwUsYbE5r&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1zwUsYbE5r/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
+<div class="piece-card"><div><div class="piece-name">7. 满江红</div><div class="piece-meta"><span>黄海怀 编曲</span></div></div><div class="piece-btns"><div class="video-embed-container">
+  <iframe class="bilibili-player" src="//player.bilibili.com/player.html?bvid=BV1N4411A7hZ&autoplay=0&high_quality=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>
+  <div class="video-actions">
+    <a href="https://www.bilibili.com/video/BV1N4411A7hZ/" target="_blank" rel="noopener">B站原页</a>
+  </div>
+</div></div></div>
 </div>
 </div>
-
 </main>
 
 <footer>
