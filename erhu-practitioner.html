@@ -591,6 +591,8 @@ activeOscs={};
 }
 var tunerAnalyser=null;
 var tunerRafId=null;
+var lastPromptTime=0;
+var promptCooldown=2000;
 var TUNER_TARGETS={d1:73.4,a1:110,a4:440,d4:293.66};
 var currentTarget='a1';
 var NOTE_NAMES=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
@@ -689,6 +691,8 @@ var absCents=Math.abs(cents);
 if(absCents<=10){
 noteNameEl.className='note-name flat';
 centEl.style.color='var(--green)';
+var now=Date.now();
+if(now-lastPromptTime>promptCooldown){lastPromptTime=now;playPromptTone();}
 }else if(cents>0){
 noteNameEl.className='note-name sharp';
 centEl.style.color='var(--blue)';
@@ -705,6 +709,27 @@ needle.style.transform='rotate('+angle+'deg)';
 dot.style.transform='rotate('+angle+'deg)';
 dot.style.fill=absCents<=10?'var(--green)':'var(--accent)';
 }
+
+function playPromptTone(){
+  // 短促"叮"提示音：440Hz正弦波，0.3秒，带淡入淡出
+  try{
+    var ctx = getACtx();
+    if(ctx.state==='suspended') ctx.resume();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = 880;  // 高音叮声
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.03);  // 淡入
+    gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.1);
+    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.35);  // 淡出
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  }catch(e){}
+}
+
 function resetNeedle(){
 var needle=document.getElementById('tunerNeedle');
 var dot=document.getElementById('needleDot');
